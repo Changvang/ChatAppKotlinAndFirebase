@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:546881346663:android:a31961ffdf7269cdba88c2",
+        "mobilesdk_app_id": "1:546881346663:android:8c8701bdf6db00f3ba88c2",
         "android_client_info": {
           "package_name": "bku.com.chatappkotlin"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "546881346663-kko5bji38bb08cqtsv1kl40phu5g506v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bku.com.chatappkotlin",
+            "certificate_hash": "81b16a0ffbc8ffe5e12737723bfe91127eff2eb5"
+          }
+        },
         {
           "client_id": "546881346663-pgb0vaucibq7qsilcgja2ruguonitk4l.apps.googleusercontent.com",
           "client_type": 3
