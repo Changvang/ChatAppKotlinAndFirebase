@@ -114,10 +114,21 @@ class RegisterActivity : AppCompatActivity() {
         val user = User(uid.toString(), Url_image, name_textbox_register.text.toString())
         ref.setValue(user)
                 .addOnSuccessListener {
-                    Log.d("Register", "Succesfull create new account")
+                    Log.d("Register", "Successful to save image to database")
+                    // Chuyen qua MessageActivity
+                    val intent = Intent(this, MessageActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+
+
+                }
+                .addOnFailureListener{
+                    Log.d("Register", "Fail to save image to database")
                 }
     }
 
 }
 
-class User(val uid: String, val url_image : String, val userName: String )
+class User(val uid: String, val url_image : String, val userName: String ){
+    constructor(): this("","","")
+}
