@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.Item
 import com.xwray.groupie.ViewHolder
@@ -39,8 +40,27 @@ class MessageActivity : AppCompatActivity() {
 
     class LastMess(val chatMessage: ChatLogActivity.ChatMessage) : Item<ViewHolder>(){
         override fun bind(viewHolder: ViewHolder, position: Int) {
-           
             viewHolder.itemView.message_last_message_row.text = chatMessage.text
+
+            val chatPartner: String
+            if(chatMessage.fromId == FirebaseAuth.getInstance().uid){
+                chatPartner = chatMessage.toId
+            }
+            else{
+                chatPartner = chatMessage.fromId
+            }
+
+            val ref = FirebaseDatabase.getInstance().getReference("users/$chatPartner")
+            ref.addListenerForSingleValueEvent(object : ValueEventListener{
+                override fun onDataChange(p0: DataSnapshot) {
+                    val user = p0.getValue(User::class.java)
+                    viewHolder.itemView.user_textview_last_message_row.text = user!!.userName
+                    Picasso.get().load(user.url_image).into(viewHolder.itemView.imageView_last_message_row)
+                }
+                override fun onCancelled(p0: DatabaseError) {
+
+                }
+            })
         }
 
         override fun getLayout(): Int {
