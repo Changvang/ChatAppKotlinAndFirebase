@@ -109,6 +109,14 @@ class ChatLogActivity : AppCompatActivity() {
                 }
         val Reref = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
         Reref.setValue(chatMessage)
+
+        // lastest message
+
+        val lastref = FirebaseDatabase.getInstance().getReference("/last-messages/$fromId/$toId")
+        lastref.setValue(chatMessage)
+
+        val lastReref = FirebaseDatabase.getInstance().getReference("/last-messages/$toId/$fromId")
+        lastReref.setValue(chatMessage)
     }
 
 //    private fun setupDummyData(){
