@@ -8,14 +8,19 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+import android.os.Parcel
+
+
 
 
 class RegisterActivity : AppCompatActivity() {
@@ -129,6 +134,34 @@ class RegisterActivity : AppCompatActivity() {
 
 }
 
-class User(val uid: String, val url_image : String, val userName: String ){
+
+class User(val uid: String, val url_image : String, val userName: String ):Parcelable {
+    constructor(parcel: Parcel) : this(
+            parcel.readString(),
+            parcel.readString(),
+            parcel.readString()) {
+    }
+
     constructor(): this("","","")
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(uid)
+        parcel.writeString(url_image)
+        parcel.writeString(userName)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<User> {
+        override fun createFromParcel(parcel: Parcel): User {
+            return User(parcel)
+        }
+
+        override fun newArray(size: Int): Array<User?> {
+            return arrayOfNulls(size)
+        }
+    }
+
 }

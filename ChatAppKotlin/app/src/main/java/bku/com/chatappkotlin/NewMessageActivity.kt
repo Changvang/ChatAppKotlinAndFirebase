@@ -1,5 +1,6 @@
 package bku.com.chatappkotlin
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -32,6 +33,10 @@ class NewMessageActivity : AppCompatActivity() {
         fetchUserData()
     }
 
+    companion object {
+        val USER_KEY = "USER_KEY"
+    }
+
     private fun fetchUserData(){
         val ref = FirebaseDatabase.getInstance().getReference("/users")
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -44,6 +49,17 @@ class NewMessageActivity : AppCompatActivity() {
                     if(user != null){
                         adapter.add(UserItem(user))
                     }
+                }
+
+
+                adapter.setOnItemClickListener{item, view ->
+
+                    val useritem = item as UserItem
+                    val intent = Intent(view.context, ChatLogActivity::class.java)
+                    intent.putExtra(USER_KEY,useritem.user)
+                    startActivity(intent)
+
+                    finish()
                 }
 
                 recycler_view_new_message.adapter = adapter

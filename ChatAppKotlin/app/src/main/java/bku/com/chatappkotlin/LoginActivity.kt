@@ -26,6 +26,10 @@ class LoginActivity: AppCompatActivity(){
             FirebaseAuth.getInstance().signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener {
                         Log.d("Main", "Successful login with $email")
+
+                        val intent = Intent(this, MessageActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(intent)
                     }
                     .addOnFailureListener {
                         Log.d("Main", "Login fail ${it.message}")

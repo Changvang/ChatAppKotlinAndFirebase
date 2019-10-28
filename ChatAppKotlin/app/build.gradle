@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+androidExtensions {
+    experimental = true
+}
+
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
@@ -46,6 +50,7 @@ dependencies {
 }
 
 apply plugin: 'com.google.gms.google-services'
+
 
 
 
