@@ -105,6 +105,7 @@ class ChatLogActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     Log.d(TAG, "Message from text box : ${ref.key}")
                     text_message_chat_log.text.clear()
+                    recycleview_chat_log.scrollToPosition(adapter.itemCount - 1)
                 }
         val Reref = FirebaseDatabase.getInstance().getReference("/user-messages/$toId/$fromId").push()
         Reref.setValue(chatMessage)
